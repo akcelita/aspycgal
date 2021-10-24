@@ -1,0 +1,12 @@
+*.egg-info
+
+build
+*.o
+*.so
+aspycgal.cpp
+
+__pycache__
+
+dist
+
+build
