@@ -250,6 +250,8 @@ def Polyhedron_from_obb(obb):
     cdef np.ndarray[DTYPE_t, ndim=2] R = np.array(obb['R'], DTYPE)
     cdef np.ndarray[DTYPE_t, ndim=1] extent = np.array(obb['extent'], DTYPE)
 
+    assert np.all(np.isfinite(center)) and np.all(np.isfinite(R)) and np.all(np.isfinite(extent))
+
     P = Polyhedron()
     l = R[0, :] * extent[0]
     u = R[1, :] * extent[1]
