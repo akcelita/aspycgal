@@ -52,11 +52,11 @@ setup(
     #     f.replace(os.sep, '.'): ['*.yaml']
     #     for f in get_folders_having_ext('.yaml')
     # },
-    # install_requires=[
+    install_requires=[
     #     'annoy',
     #     'munkres',
-    #     'numpy',
-    # ],
+        'numpy',
+    ],
     zip_safe=False,
     # setup_requires=['pytest-runner'],
     # tests_require=['pytest'],
