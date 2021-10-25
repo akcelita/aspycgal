@@ -217,7 +217,7 @@ cdef class Polyhedron:
         return self.difference_with(other)
 
     def get_volume(self):
-        return 0 if self.obj is NULL else wrapper.calc_volume(self.obj);
+        return wrapper.calc_volume(self.obj) if self.is_closed() else 0;
 
     def is_closed(self):
         return not not (self.obj and (deref(self.obj).is_closed()))
