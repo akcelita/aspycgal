@@ -269,20 +269,25 @@ def Polyhedron_from_obb(obb):
 
 
 def Polyhedron_from_vertices_faces(vertices, faces):
-    cdef np.ndarray[double] vbuf = np.array(vertices).flatten();
-    cdef np.ndarray[unsigned int] fbuf = np.concatenate([
-        [len(f)] + list(f)
+    cdef np.ndarray[double] vbuf = np.array(vertices, np.double).flatten();
+    cdef np.ndarray[np.uint64_t] fbuf = np.concatenate([
+        np.array([len(f)] + list(f), np.uint64)
         for f in faces
     ]);
 
     cdef Polyhedron P = Polyhedron();
 
-    assert 0 <= min(v for f in faces for v in f) and max(v for f in faces for v in f) <= len(vertices)
+    assert np.all(np.isfinite(vertices))
+    assert 0 <= min(v for f in faces for v in f)
+    assert max(v for f in faces for v in f) <= len(vertices)
+
+    print(vbuf, vbuf.dtype, len(vbuf))
+    print(fbuf, fbuf.dtype, len(fbuf))
 
     wrapper.make_polyhedron_from_vertices_faces(
         P.obj,
-        &vbuf[0], len(vbuf),
-        &fbuf[0], len(fbuf),
+        &(vbuf[0]), len(vertices),
+        &(fbuf[0]), len(faces),
     );
 
     return P

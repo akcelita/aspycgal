@@ -13,31 +13,32 @@ namespace AkcCGALWrap {
 
     void make_polyhedron_from_vertices_faces(
         Polyhedron* P,
-        double* vertex_data, unsigned int num_vertices,
-        unsigned int* face_data, unsigned int num_faces
+        double* vertex_data, uint64_t num_vertices,
+        uint64_t* face_data, uint64_t num_faces
     ){
         Polyhedron_builder_wrapper pbw(P);
         Polyhedron_builder_wrapper::builder_type& B = pbw.builder();
 
-        unsigned int num_halfedges = (num_vertices + num_faces - 2) * 2;
+        uint64_t num_halfedges = (num_vertices + num_faces - 2) * 2;
 
         B.begin_surface(num_vertices, num_halfedges, num_faces);
 
-        for(unsigned int i=0; i < num_vertices; i++){
+        for(uint64_t i=0; i < num_vertices; i++){
             double vx = *vertex_data;
             vertex_data++;
             double vy = *vertex_data;
             vertex_data++;
             double vz = *vertex_data;
             vertex_data++;
+
             B.add_vertex(Point(vx, vy, vz));
         }
 
-        for(unsigned int i=0; i < num_faces; i++){
-            unsigned int num_face_vertices = *face_data;
+        for(uint64_t i=0; i < num_faces; i++){
+            uint64_t num_face_vertices = *face_data;
             ++face_data;
             B.begin_facet();
-            for(unsigned int j=0; j < num_face_vertices; j++){
+            for(uint64_t j=0; j < num_face_vertices; j++){
                 B.add_vertex_to_facet(*face_data);
                 ++face_data;
             }

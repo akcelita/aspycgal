@@ -1,6 +1,7 @@
 # distutils: language = c++
 
 from libcpp cimport bool, nullptr_t
+from libc.stdint cimport uint64_t
 
 
 cdef extern from "<wrapper/ascgal_wrapper.h>" namespace "AkcCGALWrap":
@@ -82,8 +83,8 @@ cdef extern from "<wrapper/ascgal_wrapper.h>" namespace "AkcCGALWrap":
 
     void make_polyhedron_from_vertices_faces(
         Polyhedron* P,
-        double* vertex_data, unsigned int num_vertices,
-        unsigned int* face_data, unsigned int num_faces
+        double* vertex_data, uint64_t num_vertices,
+        uint64_t* face_data, uint64_t num_faces
     );
 
     cppclass BooleanOperation:

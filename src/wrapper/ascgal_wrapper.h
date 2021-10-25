@@ -1,12 +1,17 @@
 #ifndef ASCGAL_WRAPPER_H
 #define ASCGAL_WRAPPER_H  _
 
+#include <cstdint>
+
+// LICENCE: LGPL
 #include <CGAL/Simple_cartesian.h>
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
 #include <CGAL/Modifier_base.h>
 #include <CGAL/HalfedgeDS_default.h>
 #include <CGAL/Polyhedron_3.h>
 #include <CGAL/Polyhedron_incremental_builder_3.h>
+
+using std::uint64_t;
 
 namespace AkcCGALWrap {
     typedef CGAL::Exact_predicates_exact_constructions_kernel Kernel;
@@ -66,8 +71,8 @@ namespace AkcCGALWrap {
 
     void make_polyhedron_from_vertices_faces(
         Polyhedron* P,
-        double* vertex_data, unsigned int num_vertices,
-        unsigned int* face_data, unsigned int num_faces
+        double* vertex_data, uint64_t num_vertices,
+        uint64_t* face_data, uint64_t num_faces
     );
 
     enum BooleanOperation {
